@@ -30,11 +30,11 @@ library(cowplot)
 
 ##############################################################################################################################
 # specify the following parameters
-HUCs <- c("03070204") # top-level vector of HUCs *to match (must be strings, not numeric)
+HUCs <- c("03070201", "03070202") # top-level vector of HUCs to match (must be strings, not numeric)
 # search for HUCs here: https://water.usgs.gov/wsc/map_index.html
-states <- c("FL", "GA") # states spanned by the river basin (for parsing waterbodies), use abbreviations
-river_name <- "StMarys" # river name for files
-river_name_plot <- "St. Marys" # river name for plot title
+states <- c("GA") # states spanned by the river basin (for parsing waterbodies), use abbreviations
+river_name <- "Satilla" # river name for files
+river_name_plot <- "Satilla" # river name for plot title
 wd <- "H:/USHiddenRivers/" # top level working directory
 
 setwd(wd)
@@ -115,8 +115,7 @@ coastline <- spTransform(coastline, CRS("+proj=longlat +datum=WGS84 +no_defs +el
 
 # STATE CAPITOLS
 # data from https://github.com/jasperdebie/VisInfo/blob/master/us-state-capitals.csv
-setwd(wd)
-capitols <- read.csv("/data/stateCapitols.csv", header=TRUE)
+capitols <- read.csv(paste(wd, "/data/stateCapitols.csv", sep=""), header=TRUE)
 
 
 ###############################################################################################################################
@@ -172,7 +171,7 @@ gworld <- ggplot(data = world) +
   geom_sf(fill="black", color="#565656") +
   geom_sf(data=us_states, fill="black", color="#565656") +
   geom_rect(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, 
-            fill = NA, colour = "red", size = 0.8) +
+            fill = NA, colour = "red", size = 1.2) +
   coord_sf(xlim = c(-130, -65), ylim = c(25, 55), expand = FALSE, datum=NA) +
   theme(panel.border = element_rect(colour = "black", fill=NA), panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), axis.line = element_blank(), 
@@ -203,9 +202,6 @@ p <- ggplot() +
   annotation_north_arrow(location = "tr", which_north = "true", # adjust arrow location as needed
                          pad_x = unit(0.2, "in"), pad_y = unit(0.5, "in"),
                          style = north_arrow_fancy_orienteering) +
-  annotate("text", x=-82.33, y=30.85, label="Okefenokee\nSwamp", color="white", size=3) +
-  annotate("text", x=-82.95, y=30.57, label="Florida", color="white", hjust=0, size=3) +
-  annotate("text", x=-82.95, y=30.65, label="Georgia", color="white", hjust=0, size=3) +
   labs(title = paste(river_name_plot, "River Basin")) +
   coord_equal() +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) + 
@@ -218,14 +214,14 @@ p <- ggplot() +
 # adjust x and y position and size of inset plot
 xpos = 0.7
 ypos = 0.12
-size = 0.21
+size = 0.2
 ggdraw(p) +   
   draw_plot(gworld, width = size, height = size * 10/6 * gworld_ratio, x = xpos, y = ypos) 
 
 # plot dimensions
 # mess with the multipliers to get a nice figure
-height = (ymax-ymin)*2.8
-width = (xmax-xmin)*2.8
+height = (ymax-ymin)*2.5
+width = (xmax-xmin)*2.5
 # save as png
 ggsave(paste(wd, "maps/", river_name, ".png", sep=""), units = "in", dpi=900, height=height, width=width)
 ggsave(paste(wd, "maps/", river_name, ".pdf", sep=""), height=height, width=width)
