@@ -30,11 +30,11 @@ library(cowplot)
 
 ##############################################################################################################################
 # specify the following parameters
-HUCs <- c("030801") # top-level vector of HUCs to match (must be strings, not numeric)
+HUCs <- c("03070204") # top-level vector of HUCs to match (must be strings, not numeric)
 # search for HUCs here: https://water.usgs.gov/wsc/map_index.html
-states <- c("FL") # states spanned by the river basin (for parsing waterbodies), use abbreviations
-river_name <- "StJohns" # river name for files
-river_name_plot <- "St. Johns" # river name for plot title
+states <- c("FL", "GA") # states spanned by the river basin (for parsing waterbodies), use abbreviations
+river_name <- "StMarys" # river name for files
+river_name_plot <- "St. Marys" # river name for plot title
 wd <- "H:/USHiddenRivers/" # top level working directory
 
 setwd(wd)
@@ -45,7 +45,7 @@ setwd(wd)
 # RIVERS
 # load shapefile for all US streams at 1 million scale
 # data from https://nationalmap.gov/small_scale/mld/1strmsl.html
-rivers <- readOGR(paste(wd, "./shapefiles/allRivers/streaml010g.shp", sep=""))
+rivers <- readOGR(paste(wd, "/shapefiles/allRivers/streaml010g.shp", sep=""))
 rivers <- spTransform(rivers, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 reachCodes <- as.character(rivers$ReachCode)
 target_river <- rivers[which(as.logical(rowSums(sapply(HUCs, startsWith, x=reachCodes)))),]
@@ -57,14 +57,14 @@ writeOGR(target_river, dsn = '.', layer = paste(river_name, "_river", sep=""), d
 # load shapefile for US watersheds (HUC 10 level)
 # data from https://www.usgs.gov/core-science-systems/ngp/national-hydrography/access-national-hydrography-products
 # will need to use external GIS platform such as QGIS to extract HUC 10 watersheds from database
-watersheds <- readOGR(paste(wd, "./shapefiles/watersheds/WBD_HU10_watersheds.shp", sep=""))
+watersheds <- readOGR(paste(wd, "/shapefiles/watersheds/WBD_HU10_watersheds.shp", sep=""))
 watersheds <- spTransform(watersheds, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 huc10s <- as.character(watersheds$huc10)
 target_watershed <- watersheds[which(as.logical(rowSums(sapply(HUCs, startsWith, x=huc10s)))),]
 target_watershed <- aggregate(target_watershed, dissolve=T)
 # crop watershed at coastline using low resolution state borders shapefile
 # data from https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_state_5m.zip
-state_borders_lowres <- readOGR("./shapefiles/stateBorders_lowRes/cb_2018_us_division_5m.shp")
+state_borders_lowres <- readOGR(paste(wd, "/shapefiles/stateBorders_lowRes/cb_2018_us_division_5m.shp", sep=""))
 target_watershed <- crop(target_watershed, state_borders_lowres)
 target_watershed <- as(target_watershed, "SpatialPolygonsDataFrame" )
 setwd(paste(wd, "./shapefiles/isolatedWatersheds", sep=""))
@@ -73,7 +73,7 @@ writeOGR(target_watershed, dsn = '.', layer = paste(river_name, "_watershed", se
 # WATERBODIES
 # read shapefile
 # data from https://maps.princeton.edu/catalog/stanford-sv709xw7113
-wbs <- readOGR(paste(wd, "./shapefiles/waterbodies", "wtrbdyp010g", sep=""))
+wbs <- readOGR(paste(wd, "/shapefiles/waterbodies/wtrbdyp010g.shp", sep=""))
 wbs <- spTransform(wbs, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 state <- as.character(wbs$State)
 target_wbs <- wbs[which(as.logical(rowSums(sapply(states, grepl, x=state, fixed=TRUE)))),]
@@ -98,7 +98,7 @@ writeOGR(target_wbs_swamps, dsn = '.', layer = paste(river_name, "_waterbodies_s
 # STATE BORDERS
 # read in shape border shapefile
 # data from https://github.com/jasperdebie/VisInfo/blob/master/us-state-capitals.csv
-state_borders <- readOGR(paste(wd, "./shapefiles/stateBorders/statesp010g.shp", sep=""))
+state_borders <- readOGR(paste(wd, "/shapefiles/stateBorders/statesp010g.shp", sep=""))
 state_borders <- spTransform(state_borders, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 # INLETS
@@ -110,13 +110,13 @@ writeOGR(inlet, dsn = '.', layer = paste(river_name, "_inlet", sep=""), driver =
 
 # COASTLINE
 # data from https://www.sciencebase.gov/catalog/item/581d051ce4b08da350d523ba
-coastline <- readOGR(paste(wd, "./shapefiles/coastline/coastll010g.shp", sep=""))
+coastline <- readOGR(paste(wd, "/shapefiles/coastline/coastll010g.shp", sep=""))
 coastline <- spTransform(coastline, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 # STATE CAPITOLS
 # data from https://github.com/jasperdebie/VisInfo/blob/master/us-state-capitals.csv
 setwd(wd)
-capitols <- read.csv("./data/stateCapitols.csv", header=TRUE)
+capitols <- read.csv("/data/stateCapitols.csv", header=TRUE)
 
 
 ###############################################################################################################################
@@ -126,10 +126,10 @@ capitols <- read.csv("./data/stateCapitols.csv", header=TRUE)
 extents <- extent(target_watershed)
 # get x and y min and max values
 # may need to adjust these manually
-ymax <- ceiling(extents@ymax)
+ymax <- ceiling(extents@ymax) + 0.3
 ymin <- floor(extents@ymin)
-xmax <- ceiling(extents@xmax)
-xmin <- floor(extents@xmin) - 2
+xmax <- ceiling(extents@xmax) + 0.5
+xmin <- floor(extents@xmin)
 
 # set up data for ggplot
 world <- ne_countries(scale='large',returnclass = 'sf')
@@ -182,27 +182,30 @@ gworld_ratio <- (xmax - xmin) / (ymax - (ymin))
 
 # main plot
 p <- ggplot() +
-  geom_sf(data=state_borders_sf_crop, fill="black", color="white") +
+  geom_sf(data=state_borders_sf_crop, fill="gray20", color="white") +
   geom_sf(data=rivers_sf_crop, color="#565656", lineend = "round") +
+  geom_sf(data=target_watershed_sf_crop, fill="black", color=NA) +
+  #geom_point(data = capitols_subset, aes(y=lat, x=long), pch="\u2605", size=5, color="white") +
+  #geom_label_repel(data = capitols_subset, aes(y=lat, x=long, label=paste(city, ", ", state, sep="")),
+  #                 box.padding   = 0.35, 
+  #                 point.padding = 0.5,
+  #                 segment.color = 'white', show.legend = FALSE) + 
   geom_sf(data=state_borders_sf_crop, fill=NA, color="white") +
-  #geom_sf(data=coastline_sf_crop, fill=NA, color="black") +
-  geom_sf(data=target_watershed_sf_crop, fill="#3e3e3e", color=NA) +
-  geom_point(data = capitols_subset, aes(y=lat, x=long), pch="\u2605", size=5, color="white") +
-  geom_label_repel(data = capitols_subset, aes(y=lat, x=long, label=paste(city, ", ", state, sep="")),
-                   box.padding   = 0.35, 
-                   point.padding = 0.5,
-                   segment.color = 'white', show.legend = FALSE) + 
+  geom_sf(data=coastline_sf_crop, fill=NA, color="gray20") +
   geom_sf(data=target_wbs_swamps_sf_crop, fill=alpha("#82eefd", 0.3), color=NA) +
-  geom_sf(data=inlet_sf_crop, fill="#82eefd", color=NA) +
-  geom_sf(data=target_wbs_lakes_sf_crop, fill="#82eefd", color=NA) +
+  geom_sf(data=inlet_sf_crop, fill="#82eefd", color="#82eefd") +
+  geom_sf(data=target_wbs_lakes_sf_crop, fill="#82eefd", color="#82eefd") +
   geom_sf(data=target_river_sf_crop, aes(size=factor(Strahler)), color="#82eefd", 
           show.legend = FALSE, lineend = "round") +
   scale_size_manual(values=seq(0.5,2,by=0.1)) +
-  annotation_scale(location = "bl", width_hint = 0.2, unit_category="imperial", text_col="white") + # adjust scale location as needed
-  annotation_scale(location = "tr", width_hint = 0.2, unit_category="metric", text_col="white") + # adjust scale location as needed
+  annotation_scale(location = "br", width_hint = 0.2, unit_category="imperial", text_col="white") + # adjust scale location as needed
+  annotation_scale(location = "tr", width_hint = 0.2, unit_category="metric",  text_col="white") + # adjust scale location as needed
   annotation_north_arrow(location = "tr", which_north = "true", # adjust arrow location as needed
-                         pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
+                         pad_x = unit(0.2, "in"), pad_y = unit(0.5, "in"),
                          style = north_arrow_fancy_orienteering) +
+  annotate("text", x=-82.33, y=30.85, label="Okefenokee\nSwamp", color="white") +
+  annotate("text", x=-82.95, y=30.57, label="Florida", color="white", hjust=0, size=3) +
+  annotate("text", x=-82.95, y=30.65, label="Georgia", color="white", hjust=0, size=3) +
   labs(title = paste(river_name_plot, "River Basin")) +
   coord_equal() +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) + 
@@ -212,15 +215,17 @@ p <- ggplot() +
         panel.background = element_rect(fill = "#1c5163"),
         plot.title = element_text(color = "black", size = 16, hjust = 0.5))
 
-# adjust x and y position of inset plot
-xpos = 0.16
-ypos = 0.2
+# adjust x and y position and size of inset plot
+xpos = 0.7
+ypos = 0.15
+size = 0.23
 ggdraw(p) +   
-  draw_plot(gworld, width = 0.26, height = 0.26 * 10/6 * gworld_ratio, x = xpos, y = ypos) 
+  draw_plot(gworld, width = size, height = size * 10/6 * gworld_ratio, x = xpos, y = ypos) 
 
 # plot dimensions
-height = (ymax-ymin)*1.5
-width = (xmax-xmin)*1.4 
+# mess with the multipliers to get a nice figure
+height = (ymax-ymin)*3.2
+width = (xmax-xmin)*3.2
 # save as png
 ggsave(paste(wd, "maps/", river_name, ".png", sep=""), units = "in", dpi=900, height=height, width=width)
 ggsave(paste(wd, "maps/", river_name, ".pdf", sep=""), height=height, width=width)
