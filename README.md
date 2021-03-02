@@ -6,3 +6,7 @@ Scripts to plot river systems across the United States. Requires downloading sev
 
 ## St. Marys River
 ![St. Marys River](./maps/StMarys.png)
+
+## Satilla River
+drainage: 3,379 mi2 (8752 km2)
+![Satilla River](./maps/Satilla.png)
