@@ -125,10 +125,10 @@ capitols <- read.csv(paste(wd, "/data/stateCapitols.csv", sep=""), header=TRUE)
 extents <- extent(target_watershed)
 # get x and y min and max values
 # may need to adjust these manually
-ymax <- ceiling(extents@ymax) + 0.3
-ymin <- floor(extents@ymin)
-xmax <- ceiling(extents@xmax) + 0.5
-xmin <- floor(extents@xmin)
+ymax <- ceiling(extents@ymax)
+ymin <- floor(extents@ymin) + 0.5
+xmax <- ceiling(extents@xmax) + 1
+xmin <- floor(extents@xmin) + 0.5
 
 # set up data for ggplot
 world <- ne_countries(scale='large',returnclass = 'sf')
@@ -171,9 +171,9 @@ gworld <- ggplot(data = world) +
   geom_sf(fill="black", color="#565656") +
   geom_sf(data=us_states, fill="black", color="#565656") +
   geom_rect(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, 
-            fill = NA, colour = "red", size = 1.2) +
+            fill = NA, colour = "red", size = 0.8) +
   coord_sf(xlim = c(-130, -65), ylim = c(25, 55), expand = FALSE, datum=NA) +
-  theme(panel.border = element_rect(colour = "black", fill=NA), panel.grid.major = element_blank(),
+  theme(panel.border = element_rect(colour = "white", fill=NA), panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), axis.line = element_blank(), 
         panel.background = element_rect(fill = "#1c5163"),
         plot.background = element_rect(fill = "transparent", color = NA))
@@ -190,7 +190,7 @@ p <- ggplot() +
   #                 point.padding = 0.5,
   #                 segment.color = 'white', show.legend = FALSE) + 
   geom_sf(data=state_borders_sf_crop, fill=NA, color="white") +
-  geom_sf(data=coastline_sf_crop, fill=NA, color="gray20") +
+  #geom_sf(data=coastline_sf_crop, fill=NA, color="gray20") +
   geom_sf(data=target_wbs_swamps_sf_crop, fill=alpha("#82eefd", 0.3), color=NA) +
   geom_sf(data=inlet_sf_crop, fill="#82eefd", color="#82eefd") +
   geom_sf(data=target_wbs_lakes_sf_crop, fill="#82eefd", color="#82eefd") +
@@ -202,6 +202,8 @@ p <- ggplot() +
   annotation_north_arrow(location = "tr", which_north = "true", # adjust arrow location as needed
                          pad_x = unit(0.2, "in"), pad_y = unit(0.5, "in"),
                          style = north_arrow_fancy_orienteering) +
+  annotate("text", x=-82.95, y=30.57, label="Florida", color="white", hjust=0, size=3) +
+  annotate("text", x=-82.95, y=30.65, label="Georgia", color="white", hjust=0, size=3) +
   labs(title = paste(river_name_plot, "River Basin")) +
   coord_equal() +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) + 
@@ -212,8 +214,8 @@ p <- ggplot() +
         plot.title = element_text(color = "black", size = 16, hjust = 0.5))
 
 # adjust x and y position and size of inset plot
-xpos = 0.7
-ypos = 0.12
+xpos = 0.65
+ypos = 0.05
 size = 0.2
 ggdraw(p) +   
   draw_plot(gworld, width = size, height = size * 10/6 * gworld_ratio, x = xpos, y = ypos) 

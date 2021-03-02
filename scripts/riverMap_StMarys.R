@@ -115,8 +115,7 @@ coastline <- spTransform(coastline, CRS("+proj=longlat +datum=WGS84 +no_defs +el
 
 # STATE CAPITOLS
 # data from https://github.com/jasperdebie/VisInfo/blob/master/us-state-capitals.csv
-setwd(wd)
-capitols <- read.csv("/data/stateCapitols.csv", header=TRUE)
+capitols <- read.csv(paste(wd, "/data/stateCapitols.csv", sep=""), header=TRUE)
 
 
 ###############################################################################################################################
