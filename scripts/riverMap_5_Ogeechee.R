@@ -74,7 +74,7 @@ target_rivers_ws <- rivers[!is.na(in_ws_rivers$dummy),]
 feat <- as.character(target_rivers_ws@data$Feature)
 target_rivers_ws <- target_rivers_ws[which(!as.logical(rowSums(sapply(c("Intracoastal Waterway"), grepl, x=feat, fixed=TRUE)))),]
 setwd(paste(wd, "./shapefiles/isolatedRivers", sep=""))
-writeOGR(target_rivers_ws, dsn = '.', layer = paste(river_name, "_river_test", sep=""), driver = "ESRI Shapefile", overwrite_layer=TRUE)
+writeOGR(target_rivers_ws, dsn = '.', layer = paste(river_name, "_river", sep=""), driver = "ESRI Shapefile", overwrite_layer=TRUE)
 
 # WATERBODIES
 # read shapefile
