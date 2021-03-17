@@ -1,5 +1,5 @@
 # Hidden Rivers of the United States
-Scripts to plot river systems across the United States. Requires a number several of large shapefiles, available for download from [Google drive](https://drive.google.com/drive/folders/1kcnSb0gbX7t25eKa3k3dVA84PbOYdz2L?usp=sharing)
+Scripts to plot river systems across the United States. Requires a number several of large shapefiles, available for download from [Google drive.](https://drive.google.com/drive/folders/1kcnSb0gbX7t25eKa3k3dVA84PbOYdz2L?usp=sharing)
 
 Follow the series on [Twitter @DMacGuig](https://twitter.com/DMacGuig)
 
