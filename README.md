@@ -39,3 +39,11 @@ drainage basin: 4,758 km² (1,837 mi²)
 ![# 9 Edisto River](./maps/Edisto_crop.png)
 [Edisto River](https://twitter.com/DMacGuig/status/1372268444914221059)
 drainage basin: 2,498 km² (6,470 mi²)
+
+![# 10 Santee River](./maps/Santee_crop.png)
+[Santee River](https://twitter.com/DMacGuig/status/1372653528381071366)
+drainage basin: 39,837 km² (15,381mi²)
+
+![# 11 Pee Dee River](./maps/PeeDee_crop.png)
+[Pee Dee River](https://twitter.com/DMacGuig/status/1374470431176941574)
+drainage basin: 47,986 km² (18,527 mi²)
