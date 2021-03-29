@@ -47,3 +47,7 @@ drainage basin: 39,837 km² (15,381mi²)
 ![# 11 Pee Dee River](./maps/PeeDee_crop.png)
 [Pee Dee River](https://twitter.com/DMacGuig/status/1374470431176941574)
 drainage basin: 47,986 km² (18,527 mi²)
+
+![# 12 Cape Fear River](./maps/CapeFear_crop.png)
+[Cape Fear River](https://twitter.com/DMacGuig/status/1374470431176941574)
+drainage basin: 23,735 km² (9,164 mi²)
