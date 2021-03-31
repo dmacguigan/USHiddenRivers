@@ -30,10 +30,10 @@ library(cowplot)
 
 ##############################################################################################################################
 # specify the following parameters
-HUCs <- c("03030002", "03030003", "03030004", "03030005", "03030006", "03030007") # top-level vector of HUCs to match (must be strings, not numeric)
+HUCs <- c("030202") # top-level vector of HUCs to match (must be strings, not numeric)
 # search for HUCs here: https://water.usgs.gov/wsc/map_index.html
-river_name <- "CapeFear" # river name for files
-river_name_plot <- "Cape Fear" # river name for plot title
+river_name <- "Neuse" # river name for files
+river_name_plot <- "Neuse" # river name for plot title
 wd <- "H:/USHiddenRivers/" # top level working directory
 
 setwd(wd)
@@ -80,8 +80,8 @@ writeOGR(target_rivers_ws, dsn = '.', layer = paste(river_name, "_river", sep=""
 # data from https://maps.princeton.edu/catalog/stanford-sv709xw7113
 wbs <- readOGR(paste(wd, "/shapefiles/waterbodies/wtrbdyp010g.shp", sep=""))
 wbs <- spTransform(wbs, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
-feature <- as.character(wbs$Feature)
 # lakes only
+feature <- as.character(wbs$Feature)
 target_wbs_lakes_all <- wbs[which(as.logical(rowSums(sapply(c("Lake", "Reservoir"), grepl, x=feature, fixed=TRUE)))),]
 feature <- as.character(target_wbs_lakes_all$Feature)
 target_wbs_lakes_all <- target_wbs_lakes_all[which(!as.logical(rowSums(sapply(c("Lake Dry"), grepl, x=feature, fixed=TRUE)))),]
@@ -92,6 +92,7 @@ target_wbs_lakes <- as(target_wbs_lakes, "SpatialPolygonsDataFrame" )
 setwd(paste(wd, "/shapefiles/isolatedWaterbodies", sep=""))
 writeOGR(target_wbs_lakes, dsn = '.', layer = paste(river_name, "_waterbodies_lakes", sep=""), driver = "ESRI Shapefile", overwrite_layer=TRUE)
 # swamps only
+feature <- as.character(wbs$Feature)
 target_wbs_swamps <- wbs[which(as.logical(rowSums(sapply(c("Swamp or Marsh"), grepl, x=feature, fixed=TRUE)))),]
 in_ws_swamps <- over(target_wbs_swamps, target_watershed)
 target_wbs_swamps <- target_wbs_swamps[!is.na(in_ws_swamps$dummy),]
@@ -147,9 +148,9 @@ extents <- extent(target_watershed)
 # may need to adjust these manually
 ymax <- ceiling(extents@ymax) - 0.5
 extents@ymax <- ymax
-ymin <- floor(extents@ymin) + 0.5
+ymin <- floor(extents@ymin)
 extents@ymin <- ymin
-xmax <- ceiling(extents@xmax) + 0.3
+xmax <- ceiling(extents@xmax) + 0.7
 extents@xmax <-  xmax
 xmin <- floor(extents@xmin) + 0.5
 extents@xmin <- xmin
@@ -160,11 +161,6 @@ world <- ne_countries(scale='large',returnclass = 'sf')
 us_states <- ne_states(country="United States of America", returnclass = 'sf')
 cities_subset <- cities[which(cities$lat < ymax & cities$lat > ymin &
                                   cities$long < xmax & cities$long > xmin),]
-cities_subset[2,] <- c("North Carolina", "Wilmington", 34.2104, -77.8868)
-cities_subset[3,] <- c("North Carolina", "Fayetteville", 35.0527, -78.8784)
-
-cities_subset[,3] <- as.numeric(cities_subset[,3])
-cities_subset[,4] <- as.numeric(cities_subset[,4])
 
 inlet_sf <- st_as_sf(inlet)
 #inlet_sf_crop <- st_crop(inlet_sf, xmin = xmin, xmax = xmax,
@@ -238,39 +234,31 @@ p <- ggplot() +
   geom_sf(data=target_rivers_ws_sf_crop, aes(size=factor(Strahler)), color="#82eefd", 
           show.legend = FALSE, lineend = "round") +
   geom_point(data = cities_subset, aes(y=lat, x=long), pch=21, size=1, stroke=2, color="red", fill="black") +
-  geom_label_repel(data = cities_subset[1,], aes(y=lat, x=long, label=paste(city, sep="")),
+  geom_label_repel(data = cities_subset[1,], aes(y=lat, x=long, label=paste(city, ", ", state, sep="")),
                    box.padding   = 0.35, size = 3, alpha=0.8, segment.alpha=1, point.padding = 0.5,
-                   xlim=c(-78.5, -76),
+                   xlim=c(-78, -76), ylim=c(35.9, 37),
                    segment.color = 'red', show.legend = FALSE) + 
-  geom_label_repel(data = cities_subset[2,], aes(y=lat, x=long, label=paste(city, sep="")),
-                   box.padding   = 0.35, size = 3, alpha=0.8, segment.alpha=1, point.padding = 0.5,
-                   xlim=c(-78, -76), ylim=c(33.5, 34.5),
-                   segment.color = 'red', show.legend = FALSE) + 
-  geom_label_repel(data = cities_subset[3,], aes(y=lat, x=long, label=paste(city, sep="")),
-                   box.padding   = 0.35, size = 3, alpha=0.8, segment.alpha=1, point.padding = 0.5,
-                   xlim=c(-81, -79.3), ylim=c(33.5, 35),
-                   segment.color = 'red', show.legend = FALSE) + 
-  scale_size_manual(values=seq(0.2,5,by=0.15)) +
+  scale_size_manual(values=seq(0.2,5,by=0.12)) +
   annotation_scale(location = "tr", width_hint = 0.2, unit_category="imperial", text_col="white", line_col="white") + # adjust scale location as needed
   annotation_scale(location = "tl", width_hint = 0.2, unit_category="metric",  text_col="white", line_col="white") + # adjust scale location as needed
   annotation_north_arrow(location = "br", which_north = "true", # adjust arrow location as needed
                          pad_x = unit(0.2, "in"), pad_y = unit(0.5, "in"),
                          style = north_arrow_fancy_orienteering) +
-  annotate("text", x=-79.08, y=34.25, label="South Carolina", color="white", hjust=0.5, vjust=0.5, size=3, angle = -47) +
-  annotate("text", x=-79, y=34.32, label="North Carolina", color="white", hjust=0.5, vjust=0.5, size=3, angle = -47) +
+  annotate("text", x=-76, y=35.3, label="Pamlico Sound", color="white", hjust=0.5, vjust=0.5, size=3, angle = 45) +
+  #annotate("text", x=-79, y=34.32, label="North Carolina", color="white", hjust=0.5, vjust=0.5, size=3, angle = -47) +
   labs(title = paste(river_name_plot, "River Basin")) +
   coord_equal() +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) + 
   ylab("") +
   xlab("") +
-  theme(panel.grid.major = element_line(color = gray(.5), linetype = "dashed", size = 0.5), 
+  theme(panel.grid.major = element_line(color = gray(.5), linetype = "dashed", size = 1), 
         panel.background = element_rect(fill = "#1c5163"),
         plot.title = element_text(color = "black", size = 16, hjust = 0.5))
 
 # adjust x and y position and size of inset plot
-xpos = 0.21
-ypos = -0.04
-size = 0.2
+xpos = 0.14
+ypos = -0.1
+size = 0.22
 ggdraw(p) + 
   draw_plot(gworld, width = size, height = size * 10/6 * gworld_ratio, 
             x = xpos, y = ypos, hjust=0, vjust=0) 
@@ -278,7 +266,7 @@ ggdraw(p) +
 # plot dimensions
 # mess with the multipliers to get a nice figure
 height = (ymax-ymin)*2
-width = (xmax-xmin)*2
+width = (xmax-xmin)*1.6
 # save as png
 ggsave(paste(wd, "maps/", river_name, ".png", sep=""), units = "in", dpi=600, height=height, width=width)
 ggsave(paste(wd, "maps/", river_name, ".pdf", sep=""), height=height, width=width)
@@ -286,11 +274,11 @@ ggsave(paste(wd, "maps/", river_name, ".pdf", sep=""), height=height, width=widt
 
 # calculate area of watershed square km
 raster::area(target_watershed) / 1000000 
-# [1] 23735.09
+# [1] 14870.61
 
 # calculate area of watershed in square miles
 (raster::area(target_watershed) / 1000000) * 0.386102
-# [1] 9164.165
+# [1] 5741.571
 
 # calculatae max stream order
 max(target_rivers_ws_sf_crop$Strahler)
