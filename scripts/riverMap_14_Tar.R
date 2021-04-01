@@ -283,7 +283,7 @@ ggdraw(p) +
 
 # plot dimensions
 # mess with the multipliers to get a nice figure
-height = (ymax-ymin)*2.7
+height = (ymax-ymin)*2.8
 width = (xmax-xmin)*2
 # save as png
 ggsave(paste(wd, "maps/", river_name, ".png", sep=""), units = "in", dpi=600, height=height, width=width)
