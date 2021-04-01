@@ -52,8 +52,11 @@ drainage basin: 47,986 km² (18,527 mi²)
 [Cape Fear River](https://twitter.com/DMacGuig/status/1376553530069241856)
 drainage basin: 23,735 km² (9,164 mi²)
 
-![# 12 Neuse River](./maps/Neuse.png)
+![# 13 Neuse River](./maps/Neuse.png)
 [Neuse River](https://twitter.com/DMacGuig/status/1377357531413016578)
 drainage basin: 14,871 km² (5,742 mi²)
 
+![# 14 Tar River](./maps/Tar.png)
+[Tar River](https://twitter.com/DMacGuig/status/1377719919278710784)
+drainage basin: 14,871 km² (5,742 mi²)
 
