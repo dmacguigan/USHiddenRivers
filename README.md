@@ -60,3 +60,8 @@ drainage basin: 14,871 km² (5,742 mi²)
 [Tar River](https://twitter.com/DMacGuig/status/1377719919278710784)
 drainage basin: 14,871 km² (5,742 mi²)
 
+![# 14 Roanoke River](./maps/Roanoke.png)
+[Roanoke River](https://twitter.com/DMacGuig/status/1379161925854978048)
+drainage basin: 25,297 km² (9,767 mi²)
+
+
