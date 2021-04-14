@@ -73,5 +73,5 @@ drainage basin: 4,975  km² (4,975  mi²)
 drainage basin: 26,789 km² (10,343 mi²)
 
 ![# 18 York River](./maps/York.png)
-[York River](https://twitter.com/DMacGuig/status/1382403831682764802)
+[York River](https://twitter.com/DMacGuig/status/1382405580443238407)
 drainage basin: 6,928 km² (2,675 mi²)
