@@ -60,8 +60,18 @@ drainage basin: 14,871 km² (5,742 mi²)
 [Tar River](https://twitter.com/DMacGuig/status/1377719919278710784)
 drainage basin: 14,871 km² (5,742 mi²)
 
-![# 14 Roanoke River](./maps/Roanoke.png)
+![# 15 Roanoke River](./maps/Roanoke.png)
 [Roanoke River](https://twitter.com/DMacGuig/status/1379161925854978048)
 drainage basin: 25,297 km² (9,767 mi²)
 
+![# 16 Chowan River](./maps/Chowan.png)
+[Chowan River](https://twitter.com/DMacGuig/status/1379528084391518208)
+drainage basin: 4,975  km² (4,975  mi²)
 
+![# 17 James River](./maps/James.png)
+[James River](https://twitter.com/DMacGuig/status/1380619024103473154)
+drainage basin: 26,789 km² (10,343 mi²)
+
+![# 18 York River](./maps/York.png)
+[York River](https://twitter.com/DMacGuig/status/1382403831682764802)
+drainage basin: 6,928 km² (2,675 mi²)
