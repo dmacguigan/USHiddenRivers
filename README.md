@@ -75,3 +75,11 @@ drainage basin: 26,789 km² (10,343 mi²)
 ![# 18 York River](./maps/York.png)
 [York River](https://twitter.com/DMacGuig/status/1382405580443238407)
 drainage basin: 6,928 km² (2,675 mi²)
+
+![# 19 Rappahannock River](./maps/Rappahannock.png)
+[Rappahannock River](https://twitter.com/DMacGuig/status/1382732953164333060)
+drainage basin: 7,026 km² (2,713 mi²)
+
+![# 20 Potomac River](./maps/Potomac.png)
+[Potomac River](https://twitter.com/DMacGuig/status/1384174954678259712)
+drainage basin: 38,019 km² (14,679 mi²)
