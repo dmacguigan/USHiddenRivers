@@ -83,3 +83,7 @@ drainage basin: 7,026 km² (2,713 mi²)
 ![# 20 Potomac River](./maps/Potomac.png)
 [Potomac River](https://twitter.com/DMacGuig/status/1384174954678259712)
 drainage basin: 38,019 km² (14,679 mi²)
+
+![# 20 Chesapeake Tributaries](./maps/ChesapeakeTribs.png)
+[Chesapeake Bay Minor Tributaries](https://twitter.com/DMacGuig/status/1384960128324018178)
+drainage basin: 17,380 km² (6,710 mi²)
