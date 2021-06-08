@@ -63,7 +63,7 @@ target_watershed_agg <- raster::aggregate(target_watershed, dissolve=T)
 # crop watershed at coastline using low resolution state borders shapefile
 # data from https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_state_5m.zip
 #state_borders_lowres <- readOGR(paste(wd, "/shapefiles/stateBorders_lowRes/cb_2018_us_division_5m.shp", sep=""))
-target_watershed <- crop(target_watershed, state_borders_agg)
+target_watershed <- crop(target_watershed, state_borders)
 target_watershed_agg <- crop(target_watershed_agg, state_borders_agg)
 target_watershed <- as(target_watershed, "SpatialPolygonsDataFrame" )
 target_watershed_agg <- as(target_watershed_agg, "SpatialPolygonsDataFrame" )

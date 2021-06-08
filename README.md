@@ -89,5 +89,24 @@ drainage basin: 38,019 km² (14,679 mi²)
 drainage basin: 17,380 km² (6,710 mi²)
 
 ![# 22 Susquehanna River](./maps/Susquehanna_resize.png)
-Susquehanna River
+[Susquehanna River](https://twitter.com/DMacGuig/status/1386345988982444036)
 drainage basin: 71,224 km² (27,500 mi²)
+
+![# 23 Delaware River](./maps/Delaware_resize.png)
+[Delaware River](https://twitter.com/DMacGuig/status/1387500583221870593)
+drainage basin: 35,251 km² (13,610 mi²)
+
+![# 24 Raritan River](./maps/Raritan.png)
+[Raritan River](https://twitter.com/DMacGuig/status/1389338980836126737)
+drainage basin: 2,863 km² (1,105 mi²)
+
+![# 25 Hackensack and Passaic Rivers](./maps/Passaic-Hackensack.png)
+[Hackensack and Passaic Rivers](https://twitter.com/DMacGuig/status/1399748076772933634)
+
+![# 26 Hudson River](./maps/Hudson_resize.png)
+[Hudson River](https://twitter.com/DMacGuig/status/1400169567457103873)
+drainage basin: 34,743 km² (13,414 mi²)
+
+![# 27 Housatonic River](./maps/Housatonic_resize.png)
+Housatonic River
+drainage basin: 5,054 km² (1,952 mi²)

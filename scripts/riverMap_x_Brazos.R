@@ -30,10 +30,10 @@ library(cowplot)
 
 ##############################################################################################################################
 # specify the following parameters
-HUCs <- c("0205") # top-level vector of HUCs to match (must be strings, not numeric)
+HUCs <- c("1205", "1206", "1207") # top-level vector of HUCs to match (must be strings, not numeric)
 # search for HUCs here: https://water.usgs.gov/wsc/map_index.html
-river_name <- "Susquehanna" # river name for files
-river_name_plot <- "Susquehanna" # river name for plot title
+river_name <- "Brazos" # river name for files
+river_name_plot <- "Brazos" # river name for plot title
 wd <- "H:/USHiddenRivers/" # top level working directory
 
 setwd(wd)
@@ -126,21 +126,25 @@ sum(gIsValid(state_borders, byid=TRUE)==FALSE)
 
 # CANADA BORDERS
 # data from https://open.canada.ca/data/en/dataset/306e5004-534b-4110-9feb-58e3a5c3fd97
-canada_borders <- readOGR(paste(wd, "/shapefiles/canadaBorders_2016census/lpr_000b16a_e.shp", sep=""))
-canada_borders <- spTransform(canada_borders, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
-canada_borders <- aggregate(canada_borders, dissolve=T)
+#canada_borders <- readOGR(paste(wd, "/shapefiles/canadaBorders_2016census/lpr_000b16a_e.shp", sep=""))
+#canada_borders <- spTransform(canada_borders, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+#canada_borders <- aggregate(canada_borders, dissolve=T)
 
 # CANADA LAKES
-canada_lakes <- readOGR(paste(wd, "/shapefiles/canvec_water_1M/waterbody_2.shp", sep=""))
-canada_lakes <- spTransform(canada_lakes, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
-ctry <- as.character(canada_lakes@data$ctry_en)
-canada_lakes_can <- canada_lakes[which(as.logical(rowSums(sapply(c("Canada"), grepl, x=ctry, fixed=TRUE)))),]
+#canada_lakes <- readOGR(paste(wd, "/shapefiles/canvec_water_1M/waterbody_2.shp", sep=""))
+#canada_lakes <- spTransform(canada_lakes, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+#ctry <- as.character(canada_lakes@data$ctry_en)
+#canada_lakes_can <- canada_lakes[which(as.logical(rowSums(sapply(c("Canada"), grepl, x=ctry, fixed=TRUE)))),]
 
 # CANADA RIVERS
-canada_rivers <- readOGR(paste(wd, "/shapefiles/canvec_water_1M/watercourse_1.shp", sep=""))
-canada_rivers <- spTransform(canada_rivers, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
-ctry <- as.character(canada_rivers@data$ctry_en)
-canada_rivers_can <- canada_rivers[which(as.logical(rowSums(sapply(c("Canada"), grepl, x=ctry, fixed=TRUE)))),]
+#canada_rivers <- readOGR(paste(wd, "/shapefiles/canvec_water_1M/watercourse_1.shp", sep=""))
+#canada_rivers <- spTransform(canada_rivers, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+#ctry <- as.character(canada_rivers@data$ctry_en)
+#canada_rivers_can <- canada_rivers[which(as.logical(rowSums(sapply(c("Canada"), grepl, x=ctry, fixed=TRUE)))),]
+
+# Mexico RIVERS
+Mexico_rivers <- readOGR(paste(wd, "/shapefiles/MexicoWaterways/MEX_water_lines_dcw.shp", sep=""))
+Mexico_rivers <- spTransform(Mexico_rivers, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 # INLETS
 inlet_outline <- crop(state_borders, target_watershed)
@@ -183,13 +187,13 @@ topo <- raster(paste(wd, "/shapefiles/shadedRelief/GRAY_HR_SR_OB.tif", sep=""))
 extents <- extent(target_watershed)
 # get x and y min and max values
 # may need to adjust these manually
-ymax <- ceiling(extents@ymax) + 0.3
+ymax <- ceiling(extents@ymax) - 0.5
 extents@ymax <- ymax
 ymin <- floor(extents@ymin)
 extents@ymin <- ymin
-xmax <- ceiling(extents@xmax)
+xmax <- ceiling(extents@xmax) - 0.5
 extents@xmax <-  xmax 
-xmin <- floor(extents@xmin) - 0.3
+xmin <- floor(extents@xmin) 
 extents@xmin <- xmin 
 
 
@@ -198,7 +202,9 @@ world <- ne_countries(scale='large',returnclass = 'sf')
 us_states <- ne_states(country="United States of America", returnclass = 'sf')
 cities_subset <- cities[which(cities$lat < ymax & cities$lat > ymin &
                                   cities$long < xmax & cities$long > xmin),]
-cities_subset <- cities_subset[4,]
+cities_subset <- cities_subset[3:4,]
+cities_subset[2,3] <- 40.7128
+cities_subset[2,4] <- -74.0060
 #cities_subset[2,] <- c("Virginia", "Norfolk", 36.8508, -76.2859)
 #cities_subset[,3] <- as.numeric(cities_subset[,3])
 #cities_subset[,4] <- as.numeric(cities_subset[,4])
@@ -242,15 +248,15 @@ fall_line_sf_crop <- st_crop(fall_line_sf, xmin = xmin, xmax = xmax,
 target_rivers_ws_sf <- st_as_sf(target_rivers_ws)
 target_rivers_ws_sf_crop <- st_crop(target_rivers_ws_sf, xmin = xmin, xmax = xmax,
                           ymin = ymin, ymax = ymax)
-canada_borders_sf <- st_as_sf(canada_borders)
-canada_borders_sf_crop <- st_crop(canada_borders_sf, xmin = xmin, xmax = xmax,
-                                 ymin = ymin, ymax = ymax)
-canada_lakes_can_sf <- st_as_sf(canada_lakes_can)
-canada_lakes_can_sf_crop <- st_crop(canada_lakes_can_sf, xmin = xmin, xmax = xmax,
-                                 ymin = ymin, ymax = ymax)
-canada_rivers_can_sf <- st_as_sf(canada_rivers_can)
-canada_rivers_can_sf_crop <- st_crop(canada_rivers_can_sf, xmin = xmin, xmax = xmax,
-                                 ymin = ymin, ymax = ymax)
+#canada_borders_sf <- st_as_sf(canada_borders)
+#canada_borders_sf_crop <- st_crop(canada_borders_sf, xmin = xmin, xmax = xmax,
+#                                 ymin = ymin, ymax = ymax)
+#canada_lakes_can_sf <- st_as_sf(canada_lakes_can)
+#canada_lakes_can_sf_crop <- st_crop(canada_lakes_can_sf, xmin = xmin, xmax = xmax,
+#                                 ymin = ymin, ymax = ymax)
+#anada_rivers_can_sf <- st_as_sf(canada_rivers_can)
+#canada_rivers_can_sf_crop <- st_crop(canada_rivers_can_sf, xmin = xmin, xmax = xmax,
+#                                 ymin = ymin, ymax = ymax)
 topo_crop <- crop(topo, extents)
 topo_crop_df <- as.data.frame(topo_crop, xy = TRUE)
 
@@ -279,21 +285,26 @@ p <- ggplot() +
   geom_raster(topo_crop_df, mapping = aes(x = x, y = y, alpha = GRAY_HR_SR_OB)) +
   scale_alpha(range =  c(0, 1), guide = "none") + 
   geom_sf(data=target_watershed_sf_crop, fill=alpha("white", 0.15), color=NA) +
-  geom_sf(data=canada_rivers_can_sf_crop, color="#565656", lineend = "round", size=0.2, show.legend = FALSE,) + #CHECK STRAHLER
+  #geom_sf(data=canada_rivers_can_sf_crop, color="#565656", lineend = "round", size=0.2, show.legend = FALSE,) + #CHECK STRAHLER
   geom_sf(data=rivers_sf_crop, color="#565656", lineend = "round", aes(size=factor(Strahler)), show.legend = FALSE,) +
-  geom_sf(data=canada_lakes_can_sf_crop, fill="#565656", color=NA) +
+  #geom_sf(data=canada_lakes_can_sf_crop, fill="#565656", color=NA) +
   geom_sf(data=target_wbs_lakes_all_sf_crop, fill="#565656", color=NA) +
-  geom_sf(data=canada_borders_sf_crop, fill=NA, color="white") +
-  geom_sf(data=state_borders_sf_crop, fill=NA, color="white") +
+  #geom_sf(data=canada_borders_sf_crop, fill=NA, color="white") +
+  geom_sf(data=state_borders_sf_crop, fill=NA, color="white", size=0.3) +
   #geom_sf(data=coastline_sf_crop, fill=NA, color="black") +
   #geom_sf(data=fall_line_sf_crop, fill=NA, color="red", linetype="dashed") +
   geom_sf(data=target_wbs_swamps_sf_crop, fill=alpha("palegreen", 0.3), color=NA) +
-  #geom_sf(data=inlet_sf_crop, fill="#82eefd", color=NA) +
+  geom_sf(data=inlet_sf_crop, fill="#82eefd", color=NA) +
   geom_sf(data=target_wbs_lakes_sf_crop, fill="#82eefd", color=NA) +
   geom_sf(data=target_rivers_ws_sf_crop, aes(size=factor(Strahler)), color="#82eefd", 
           show.legend = FALSE, lineend = "round") +
-  geom_point(data = cities_subset, aes(y=lat, x=long), pch=21, size=1, stroke=2, color="red", fill="black") +
-  geom_label_repel(data = cities_subset, aes(y=lat, x=long, label=paste(city, ", ", state, sep="")),
+  geom_point(data = cities_subset[1,], aes(y=lat, x=long), pch=21, size=1, stroke=2, color="red", fill="black") +
+  geom_label_repel(data = cities_subset[1,], aes(y=lat, x=long, label=paste(city, ", ", state, sep="")),
+                   box.padding   = 0.35, size = 4, alpha=0.9, segment.alpha=1, point.padding = 0.5,
+                   xlim=c(-78, -74.6), ylim=c(42, 43),
+                   segment.color = 'red', show.legend = FALSE) + 
+  geom_point(data = cities_subset[2,], aes(y=lat, x=long), pch=21, size=1, stroke=2, color="red", fill="black") +
+  geom_label_repel(data = cities_subset[2,], aes(y=lat, x=long, label=paste(city, ", ", state, sep="")),
                    box.padding   = 0.35, size = 4, alpha=0.9, segment.alpha=1, point.padding = 0.5,
                    xlim=c(-76, -74), ylim=c(40.3, 42),
                    segment.color = 'red', show.legend = FALSE) + 
@@ -305,10 +316,12 @@ p <- ggplot() +
                          style = north_arrow_fancy_orienteering(text_col = "white", fill=c("darkgray", "white"), line_col="white"), 
                          height = unit(0.8, "cm"), width = unit(0.8, "cm")) +
   #annotate("text", x=-76.15, y=37.9, label="Chesapeake Bay", color="white", hjust=0.5, vjust=0.5, size=5, angle=-80) +
-  annotate("text", x=-77.5, y=39.76, label="Pennsylvania", color="white", hjust=0.5, vjust=0.5, size=3) +
-  annotate("text", x=-77.5, y=39.69, label="Maryland", color="white", hjust=0.5, vjust=0.5, size=3) +
-  annotate("text", x=-78.5, y=41.97, label="Pennsylvania", color="white", hjust=0.5, vjust=0.5, size=3) +
-  annotate("text", x=-78.5, y=42.04, label="New York", color="white", hjust=0.5, vjust=0.5, size=3) +
+  annotate("text", x=-75.5, y=41.5, label="PA", color="white", hjust=0.5, vjust=0.5, size=5) +
+  annotate("text", x=-74.5, y=40.2, label="NJ", color="white", hjust=0.5, vjust=0.5, size=5) +
+  annotate("text", x=-75.5, y=44, label="NY", color="white", hjust=0.5, vjust=0.5, size=5) +
+  annotate("text", x=-73, y=41.6, label="CT", color="white", hjust=0.5, vjust=0.5, size=5) +
+  annotate("text", x=-73, y=42.4, label="MA", color="white", hjust=0.5, vjust=0.5, size=5) +
+  annotate("text", x=-73, y=43.7, label="VT", color="white", hjust=0.5, vjust=0.5, size=5) +
   labs(title = paste(river_name_plot, "River Basin")) +
   coord_equal() +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) + 
@@ -319,9 +332,9 @@ p <- ggplot() +
         plot.title = element_text(color = "black", size = 16, hjust = 0.5))
 
 # adjust x and y position and size of inset plot
-xpos = 0.11
-ypos = -0.1
-size = 0.22
+xpos = 0.68
+ypos = -0.08
+size = 0.3
 ggdraw(p) + 
   draw_plot(gworld, width = size, height = size * 10/6 * gworld_ratio, 
             x = xpos, y = ypos, hjust=0, vjust=0) 
@@ -331,17 +344,17 @@ ggdraw(p) +
 height = (ymax-ymin)*1.9
 width = (xmax-xmin)*1.5
 # save as png
-ggsave(paste(wd, "maps/", river_name, ".png", sep=""), units = "in", dpi=300, height=height, width=width)
+ggsave(paste(wd, "maps/", river_name, ".png", sep=""), units = "in", dpi=600, height=height, width=width)
 ggsave(paste(wd, "maps/", river_name, ".pdf", sep=""), height=height, width=width)
 
 
 # calculate area of watershed square km
 raster::area(target_watershed) / 1000000 
-# [1] 71224.11
+# [1] 34743.34
 
 # calculate area of watershed in square miles
 (raster::area(target_watershed) / 1000000) * 0.386102
-# [1] 27499.77
+# [1] 13414.47
 
 # calculatae max stream order
 max(target_rivers_ws_sf_crop$Strahler)
