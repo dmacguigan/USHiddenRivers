@@ -108,23 +108,23 @@ drainage basin: 2,863 km² (1,105 mi²)
 drainage basin: 34,743 km² (13,414 mi²)
 
 ![# 27 Housatonic River](./maps/Housatonic_resize.png)
-[Housatonic River] (https://twitter.com/DMacGuig/status/1402354747756072962)
+[Housatonic River](https://twitter.com/DMacGuig/status/1402354747756072962)
 drainage basin: 5,054 km² (1,952 mi²)
 
 ![# 28 Connecticut River](./maps/Connecticut_resize.png)
-[Connecticut River] (https://twitter.com/DMacGuig/status/1403079526037569537)
+[Connecticut River](https://twitter.com/DMacGuig/status/1403079526037569537)
 drainage basin: 29,174 km² (11,264 mi²)
 
 ![# 29 Thames River](./maps/Thames_resize.png)
-[Thames River] (https://twitter.com/DMacGuig/status/1405265068179132417)
+[Thames River](https://twitter.com/DMacGuig/status/1405265068179132417)
 drainage basin: 4,233 km² (1,634 mi²)
 
 ![# 30 Narragansett Bay Basin](./maps/Narragansett_resize.png)
-[Narragansett Bay Basin] (https://twitter.com/DMacGuig/status/1408154389186068485)
+[Narragansett Bay Basin](https://twitter.com/DMacGuig/status/1408154389186068485)
 drainage basin: 5,073 km² (1,959 mi²)
 
 ![# 31 Merrimack River](./maps/Merrimack_resize.png)
-[Merrimack River] (https://twitter.com/DMacGuig/status/1402354747756072962)
+[Merrimack River](https://twitter.com/DMacGuig/status/1402354747756072962)
 drainage basin: 12,959 km² (5,004 mi²)
 
 
