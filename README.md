@@ -127,4 +127,11 @@ drainage basin: 5,073 km² (1,959 mi²)
 [Merrimack River](https://twitter.com/DMacGuig/status/1443332092587356163)
 drainage basin: 12,959 km² (5,004 mi²)
 
+![# 32 Saco River](./maps/Saco_resize.png)
+[Saco River](https://twitter.com/DMacGuig/status/1443616206003507206)
+drainage basin: 4,405 km² (1,701 mi²)
+
+![# 33 Androscoggin River](./maps/Androscoggin_resize.png)
+[Androscoggin River](https://twitter.com/DMacGuig/status/1461344874070884354)
+drainage basin: 9,137 km² (3,528 mi²)
 
