@@ -135,3 +135,11 @@ drainage basin: 4,405 km² (1,701 mi²)
 [Androscoggin River](https://twitter.com/DMacGuig/status/1461344874070884354)
 drainage basin: 9,137 km² (3,528 mi²)
 
+![# 34 Kennebec River](./maps/Kennebec_resize.png)
+[Kennebec River](https://twitter.com/DMacGuig/status/1461861903093936131)
+drainage basin: 15,289 km² (5,903 mi²)
+
+![# 35 Penobscot River](./maps/Penobscot_resize.png)
+[Penobscot River](https://twitter.com/DMacGuig/status/1462806450821079043)
+drainage basin: 22,301 km² (8,611 mi²)
+
