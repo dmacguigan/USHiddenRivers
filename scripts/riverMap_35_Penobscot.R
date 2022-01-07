@@ -130,6 +130,7 @@ inlet <- gDifference(target_watershed, inlet_outline)
 inlet <- as(inlet, "SpatialPolygonsDataFrame" )
 inlet <- gSimplify(inlet, tol = 0.00001)
 inlet <- gBuffer(inlet, byid=TRUE, width=0)
+inlet <- as(inlet, "SpatialPolygonsDataFrame" )
 setwd(paste(wd, "/shapefiles/isolatedInlets", sep=""))
 writeOGR(inlet, dsn = '.', layer = paste(river_name, "_inlet", sep=""), driver = "ESRI Shapefile", overwrite_layer=TRUE)
 

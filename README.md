@@ -4,6 +4,9 @@ Scripts to plot river systems across the United States. Requires a number severa
 Follow the series on [Twitter @DMacGuig](https://twitter.com/DMacGuig)
 
 ## Examples
+![All major river basins of the US Atlantic Seaboard](./maps/eastCoastRivers_resize.png)
+[All major river basins of the US Atlantic Seaboard](https://twitter.com/DMacGuig/status/1479560554951987200)
+
 ![#1 St. Johns River](./maps/StJohns.png)
 [St. Johns River](https://twitter.com/DMacGuig/status/1366477098190331904)
 drainage basin: 24,516 km² (9,465 mi²)
@@ -142,4 +145,8 @@ drainage basin: 15,289 km² (5,903 mi²)
 ![# 35 Penobscot River](./maps/Penobscot_resize.png)
 [Penobscot River](https://twitter.com/DMacGuig/status/1462806450821079043)
 drainage basin: 22,301 km² (8,611 mi²)
+
+![# 36 Saint John River](./maps/SaintJohn_resize.png)
+[Saint John River](https://twitter.com/DMacGuig/status/1463225633773953037)
+drainage basin: 55,139 km² (21,289 mi²)
 

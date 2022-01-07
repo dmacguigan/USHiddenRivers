@@ -55,8 +55,6 @@ target_watershed <- aggregate(target_watershed, dissolve=T)
 state_borders_lowres <- readOGR(paste(wd, "/shapefiles/stateBorders_lowRes/cb_2018_us_division_5m.shp", sep=""))
 #target_watershed <- crop(target_watershed, state_borders_lowres)
 target_watershed <- as(target_watershed, "SpatialPolygonsDataFrame" )
-setwd(paste(wd, "./shapefiles/isolatedWatersheds", sep=""))
-writeOGR(target_watershed, dsn = '.', layer = paste(river_name, "_watershed", sep=""), driver = "ESRI Shapefile", overwrite_layer=TRUE)
 
 # RIVERS
 # load shapefile for all US streams at 1 million scale
@@ -111,8 +109,6 @@ state_borders <- spTransform(state_borders, CRS("+proj=longlat +datum=WGS84 +no_
 inlet_outline <- crop(state_borders, target_watershed)
 inlet <- gDifference(target_watershed, inlet_outline)
 inlet <- as(inlet, "SpatialPolygonsDataFrame" )
-setwd(paste(wd, "/shapefiles/isolatedInlets", sep=""))
-writeOGR(inlet, dsn = '.', layer = paste(river_name, "_inlet", sep=""), driver = "ESRI Shapefile", overwrite_layer=TRUE)
 
 # COASTLINE
 # data from https://www.sciencebase.gov/catalog/item/581d051ce4b08da350d523ba
@@ -173,6 +169,8 @@ locations <- data.frame(loc=c("Battle of Yorktown"), lat=c(37.2388), long=c(-76.
 inlet_sf <- st_as_sf(inlet)
 inlet_sf_crop <- st_crop(inlet_sf, xmin = xmin, xmax = -76.38,
                          ymin = ymin, ymax = ymax) # special crop for York inlet
+setwd(paste(wd, "/shapefiles/isolatedInlets", sep=""))
+st_write(inlet_sf_crop, dsn = '.', layer = paste(river_name, "_inlet", sep=""), driver = "ESRI Shapefile", overwrite_layer=TRUE)
 state_borders_sf <- st_as_sf(state_borders)
 state_borders_sf_crop <- st_crop(state_borders_sf, xmin = xmin, xmax = ,
                                  ymin = ymin, ymax = ymax)
@@ -195,6 +193,8 @@ target_wbs_lakes_all_sf_crop <- st_crop(target_wbs_lakes_all_sf, xmin = xmin, xm
 target_watershed_sf <- st_as_sf(target_watershed)
 target_watershed_sf_crop <- st_crop(target_watershed_sf, xmin = xmin, xmax = -76.38,
                                     ymin = ymin, ymax = ymax) # special crop for York inlet
+setwd(paste(wd, "./shapefiles/isolatedWatersheds", sep=""))
+st_write(target_watershed_sf_crop, paste(river_name, "_watershed.shp", sep=""),driver = "ESRI Shapefile", overwrite_layer=TRUE)
 rivers_sf <- st_as_sf(rivers)
 rivers_sf_crop <- st_crop(rivers_sf, xmin = xmin, xmax = xmax,
                                     ymin = ymin, ymax = ymax)
