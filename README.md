@@ -1,5 +1,5 @@
 # Hidden Rivers of the United States
-Scripts to plot river systems across the United States. Requires a number several of large shapefiles, available for download from [Google drive.](https://drive.google.com/drive/folders/1kcnSb0gbX7t25eKa3k3dVA84PbOYdz2L?usp=sharing)
+Scripts to plot river systems across the United States. Requires a number of large shapefiles, available for download from [Google drive.](https://drive.google.com/drive/folders/1kcnSb0gbX7t25eKa3k3dVA84PbOYdz2L?usp=sharing)
 
 Follow the series on [Twitter @DMacGuig](https://twitter.com/DMacGuig)
 
@@ -149,4 +149,12 @@ drainage basin: 22,301 km² (8,611 mi²)
 ![# 36 Saint John River](./maps/SaintJohn_resize.png)
 [Saint John River](https://twitter.com/DMacGuig/status/1463225633773953037)
 drainage basin: 55,139 km² (21,289 mi²)
+
+![# 37 Peace and Myakka Rivers](./maps/Peace_resize.png)
+[Peace and Myakka Rivers](https://twitter.com/DMacGuig/status/1481013043949678592)
+drainage basin: 8,685 km² (3,353 mi²)
+
+![# 38 Withlacoochee River](./maps/Withlacoochee_resize .png)
+[Saint John River](https://twitter.com/DMacGuig/status/1481397060909899779)
+drainage basin: 5,389 km² (2,081 mi²)
 
