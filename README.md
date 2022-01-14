@@ -158,3 +158,7 @@ drainage basin: 8,685 km² (3,353 mi²)
 [Withlacoochee River](https://twitter.com/DMacGuig/status/1481397060909899779)
 drainage basin: 5,389 km² (2,081 mi²)
 
+![# 38 Suwannee River](./maps/Suwannee_resize.png)
+[Suwannee River](https://twitter.com/DMacGuig/status/1482044558464765964)
+drainage basin: 25,409 km² (9,810 mi²)
+
