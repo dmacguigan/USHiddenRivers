@@ -41,7 +41,7 @@ drainage basin: 4,758 km² (1,837 mi²)
 
 ![# 9 Edisto River](./maps/Edisto_crop.png)
 [Edisto River](https://twitter.com/DMacGuig/status/1372268444914221059)
-drainage basin: 2,498 km² (6,470 mi²)
+drainage basin: 6,470 km² (2,498 mi²)
 
 ![# 10 Santee River](./maps/Santee.png)
 [Santee River](https://twitter.com/DMacGuig/status/1372653528381071366)
@@ -69,7 +69,7 @@ drainage basin: 25,297 km² (9,767 mi²)
 
 ![# 16 Chowan River](./maps/Chowan.png)
 [Chowan River](https://twitter.com/DMacGuig/status/1379528084391518208)
-drainage basin: 4,975  km² (4,975  mi²)
+drainage basin: 12,884 km² (4,975  mi²)
 
 ![# 17 James River](./maps/James.png)
 [James River](https://twitter.com/DMacGuig/status/1380619024103473154)
@@ -158,7 +158,15 @@ drainage basin: 8,685 km² (3,353 mi²)
 [Withlacoochee River](https://twitter.com/DMacGuig/status/1481397060909899779)
 drainage basin: 5,389 km² (2,081 mi²)
 
-![# 38 Suwannee River](./maps/Suwannee_resize.png)
+![# 39 Suwannee River](./maps/Suwannee_resize.png)
 [Suwannee River](https://twitter.com/DMacGuig/status/1482044558464765964)
 drainage basin: 25,409 km² (9,810 mi²)
+
+![# 40 Aucilla River](./maps/Aucilla_resize.png)
+[Aucilla River](https://twitter.com/DMacGuig/status/1483187371130638342)
+drainage basin: 2,469 km² (953 mi²)
+
+![# 41 Ochlockonee River](./maps/Ochlockonee_resize.png)
+[Ochlockonee River]()
+drainage basin: 6,432 km² (2,483 mi²)
 
