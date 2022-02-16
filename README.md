@@ -170,3 +170,22 @@ drainage basin: 2,469 km² (953 mi²)
 [Ochlockonee River](https://twitter.com/DMacGuig/status/1483917179984568323)
 drainage basin: 6,432 km² (2,483 mi²)
 
+![# 42 Apalachicola River](./maps/Apalachicola.png)
+[Apalachicola River](https://twitter.com/DMacGuig/status/1486118967127248900)
+drainage basin: 50,678 km² (19,567 mi²)
+
+![# 43 Choctawhatchee River](./maps/Choctawhatchee_resize.png)
+[Choctawhatchee River](https://twitter.com/DMacGuig/status/1486806225241231367)
+drainage basin: 12,051 km² (4,653 mi²)
+
+![# 44 Escambia River](./maps/Escambia_resize.png)
+[Escambia River](https://twitter.com/DMacGuig/status/1489644933321428994)
+drainage basin: 10,995 km² (4,245 mi²)
+
+![# 45 Yellow River](./maps/Yellow_resize.png)
+[Yellow River](https://twitter.com/DMacGuig/status/1491484956371079169)
+drainage basin: 3,560 km² (1,374 mi²)
+
+![# 41 Mobile River](./maps/Mobile.png)
+[Mobile River](https://twitter.com/DMacGuig/status/1483917179984568323)
+drainage basin: 113,181 km² (43,699 mi²)
